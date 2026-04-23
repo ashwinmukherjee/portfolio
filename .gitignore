@@ -4,3 +4,4 @@ node_modules/
 *.log
 /reorder.html
 /scratch*
+.claude/settings.local.json
