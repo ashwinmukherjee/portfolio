@@ -1,0 +1,85 @@
+[
+  {
+    "slug": "eon",
+    "title": "Eon",
+    "date": "Spring 2025",
+    "description": "Eon synthesizes health data — sleep, steps, heart rate, and qualitative notes — into a single predictive view. Built around a custom wearable and an app designed as the foundational OS for personal health.",
+    "images": [
+      { "src": "img/projects/eon/eon-01.jpg", "label": "HealthBar" },
+      { "src": "img/projects/eon/eon-02.jpg", "label": "Today" },
+      { "src": "img/projects/eon/eon-03.jpg", "label": "Stats" },
+      { "src": "img/projects/eon/eon-04.jpg", "label": "Recs" },
+      { "src": "img/projects/eon/eon-05.jpg", "label": "Wearable Development" }
+    ],
+    "links": [{"text": "Thread", "href": "https://x.com/ashwinmukherjee/status/1920889784546759001?s=20"}]
+  },
+  {
+    "slug": "lionfish-pavilion",
+    "title": "Lionfish Pavilion",
+    "date": "Spring 2025",
+    "description": "A small performance pavilion for USC's McCarthy Quad. Audience capacity of 30-40, built primarily as a rehearsal and recital space. Steel frame, bamboo paneling, elevated glass.",
+    "images": [
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-01.jpg", "label": "Wood Model" },
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-02.jpg", "label": "Site Plan" },
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-03.jpg", "label": "Floor Plan" },
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-04.jpg", "label": "Elevation View" },
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-05.jpg", "label": "Section View" },
+      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-06.jpg", "label": "Collage" }
+    ],
+    "links": []
+  },
+  {
+    "slug": "algaeorithm",
+    "title": "Algaeorithm",
+    "date": "Fall 2021 — Fall 2023",
+    "description": "A computational biology platform and education tool for high school classrooms. Developed in collaboration with the Institute for Systems Biology and funded by funded by $15k in grants from the U.S. Department of Energy. Full product, brand, and content system designed from scratch.",
+    "images": [
+      { "src": "img/projects/algaeorithm/algaeorithm-01.gif", "label": "Motion Graphics" },
+      { "src": "img/projects/algaeorithm/algaeorithm-02.jpg", "label": "Web Application" },
+      { "src": "img/projects/algaeorithm/algaeorithm-03.jpg", "label": "Logo" },
+      { "src": "img/projects/algaeorithm/algaeorithm-04.jpg", "label": "Branding" },
+      { "src": "img/projects/algaeorithm/algaeorithm-05.jpg", "label": "In the Lab" }
+    ],
+    "links": [
+      {"text": "YouTube", "href": "https://www.youtube.com/@algaeorithm301"},
+      {"text": "GitHub", "href": "https://github.com/rohanchanani/Algaeorithm"},
+      {"text": "ISB Feature", "href": "https://isbscience.org/news/our-people/baliga-lab/high-school-duo-named-champions-in-doe-sponsored-algaeprize-competition/"}
+    ]
+  },
+  {
+    "slug": "soundcloud-stacks",
+    "title": "SoundCloud Stacks",
+    "date": "Winter 2024",
+    "description": "A reimagined \"Behind this track\" feature for SoundCloud. Stacks are interactive, collapsible visualizations that let musicians reveal the layers and decisions behind their music",
+    "images": [
+      { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-01.gif", "label": "Stack Component" },
+      { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-02.jpg", "label": "In Context" }
+    ],
+    "links": [
+      { "text": "Read full case study", "href": "https://mukherjee.notion.site/Every-Song-Has-a-Story-b71ac3cd44f34ecda297d1dc85b753c8?source=copy_link" }
+    ]
+  },
+  {
+    "slug": "route-6600",
+    "title": "Route 6600",
+    "date": "Fall 2022",
+    "description": "Proposal for a lunar aerial gondola system, submitted to NASA's challenge for sustained human presence on the Moon. Covers technical approach, feasibility, and economic rationale.",
+    "images": [
+      { "src": "img/projects/route-6600/route-6600-01.jpg", "label": "Patch" },
+      { "src": "img/projects/route-6600/route-6600-02.jpg", "label": "Technical Overview" }
+    ],
+    "links": []
+  },
+  {
+    "slug": "laced-up",
+    "title": "Laced Up",
+    "date": "Winter 2017",
+    "description": "A sneaker-shaped bike rack designed for a citywide competition. Won, fabricated, and installed in downtown Los Altos.",
+    "images": [
+      { "src": "img/projects/laced-up/laced-up-01.jpg", "label": "Sketch" },
+      { "src": "img/projects/laced-up/laced-up-02.jpg", "label": "Render" },
+      { "src": "img/projects/laced-up/laced-up-03.jpg", "label": "Finished Rack" }
+    ],
+    "links": []
+  }
+]

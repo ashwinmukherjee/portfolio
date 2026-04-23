@@ -1,0 +1,1201 @@
+/* ==========================================================================
+   PORTFOLIO — ASHWIN MUKHERJEE
+   Design system: BRAND_REFERENCE.md
+   Landing page, takeover panels, project/writing drawers, photography page
+   ========================================================================== */
+
+/* --- Font Faces --- */
+
+/* Untitled Sans — primary sans */
+@font-face {
+  font-family: 'Untitled Sans';
+  src: url('../fonts/Test Untitled Sans/test-untitled-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Untitled Sans';
+  src: url('../fonts/Test Untitled Sans/test-untitled-sans-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Untitled Sans';
+  src: url('../fonts/Test Untitled Sans/test-untitled-sans-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ==========================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --fog-pearl:    #EDEBE6;
+  --coastal-sage: #9EA393;
+  --indigo-black: #0C1119;
+  --bengara:      #8B3A2A;
+
+  /* Semantic */
+  --color-bg:        var(--fog-pearl);
+  --color-text:      var(--indigo-black);
+  --color-secondary: var(--coastal-sage);
+  --color-accent:    var(--bengara);
+
+  /* RGB channels for alpha compositing */
+  --color-text-rgb: 12, 17, 25;
+  --color-bg-rgb:   237, 235, 230;
+
+  /* Typography */
+  --font-sans: 'Untitled Sans', -apple-system, 'Helvetica Neue', sans-serif;
+
+  /* Type scale */
+  --text-display:  clamp(48px, 6vw, 72px);
+  --text-h1:       clamp(32px, 4vw, 48px);
+  --text-h2:       clamp(24px, 3vw, 36px);
+  --text-h3:       clamp(18px, 2vw, 22px);
+  --text-body:     clamp(16px, 1.2vw, 18px);
+  --text-caption:  clamp(11px, 0.9vw, 13px);
+  --text-nav:      clamp(13px, 1.1vw, 16px);
+
+  /* Spacing */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  32px;
+  --space-lg:  64px;
+  --space-xl:  128px;
+  --space-2xl: 192px;
+
+  /* Motion — slow, tidal, inevitable */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast:   200ms;
+  --duration-medium: 500ms;
+  --duration-slow:   800ms;
+
+  /* Layout */
+  --max-width-body:  680px;
+  --max-width-wide:  960px;
+  --max-width-full:  1200px;
+  --page-padding:    clamp(24px, 5vw, 80px);
+
+  /* Opacity tiers */
+  --opacity-ambient: 0.5;
+  --opacity-structural: 1;
+  --opacity-interactive: 0.35;
+  --opacity-reading: 0.65;
+  --opacity-metadata: 0.3;
+}
+
+/* --- Dark mode: Sundarbans — indigo black ground, deep, immersive --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:        var(--indigo-black);
+    --color-text:      var(--fog-pearl);
+    --color-secondary: var(--coastal-sage);
+    --color-accent:    var(--bengara);
+
+    --color-text-rgb: 237, 235, 230;
+    --color-bg-rgb:   12, 17, 25;
+
+    /* dark mode: may need tuning */
+    --opacity-ambient: 0.55;
+    --opacity-reading: 0.7;
+    --opacity-interactive: 0.4;
+    --opacity-metadata: 0.35;
+  }
+}
+
+
+/* ==========================================================================
+   RESET & BASE
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--bengara);
+  color: var(--fog-pearl);
+}
+
+
+/* ==========================================================================
+   LANDING PAGE
+   ========================================================================== */
+
+.landing {
+  height: 100dvh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(16px, 2.5vw, 40px) var(--page-padding);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Name — top-left, like a plaque at the entrance */
+.landing-name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-nav);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-text);
+  opacity: var(--opacity-ambient);
+  padding-top: var(--space-sm);
+  transition: opacity 700ms var(--ease-out);
+}
+
+/* Navigation — three items spread edge-to-edge at vertical center */
+.landing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+  width: 100%;
+}
+
+.landing-nav-item {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  opacity: var(--opacity-ambient);
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  transition: opacity 700ms var(--ease-out), color 700ms var(--ease-out);
+}
+
+/* Nav label — the visible word for items with submenus */
+.landing-nav-label {
+  display: block;
+}
+
+/* Submenu — hidden by default */
+.landing-submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+/* ==========================================================================
+   TAKEOVER — full page list when a section is opened
+   ========================================================================== */
+
+/* Takeover — fills the same grid as landing, feels like the same room */
+.landing-takeover {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: clamp(16px, 2.5vw, 40px) var(--page-padding);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 700ms var(--ease-out),
+    visibility 700ms var(--ease-out);
+  pointer-events: none;
+}
+
+.landing-takeover.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- List view (default child of takeover) --- */
+.takeover-list-view {
+  display: contents;
+  cursor: pointer;
+}
+
+/* Label and list fade in with a stagger */
+.landing-takeover__label {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.landing-takeover__list {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.landing-takeover.is-active .takeover-list-view .landing-takeover__label {
+  opacity: 1;
+  transition-delay: 200ms;
+}
+
+.landing-takeover.is-active .takeover-list-view .landing-takeover__list {
+  opacity: 1;
+  transition-delay: 350ms;
+}
+
+/* Hide list when drawer is open */
+.landing-takeover.has-drawer .takeover-list-view {
+  pointer-events: none;
+}
+
+.landing-takeover.has-drawer .takeover-list-view .landing-takeover__label,
+.landing-takeover.has-drawer .takeover-list-view .landing-takeover__list {
+  opacity: 0 !important;
+  transition: opacity 400ms var(--ease-out);
+  transition-delay: 0ms !important;
+}
+
+
+/* ==========================================================================
+   DRAWER — project detail nested inside takeover
+   Same 3-row grid as the landing page: top / center / bottom
+   ========================================================================== */
+
+.takeover-drawer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "title  date"
+    "carousel carousel"
+    "desc   links";
+  max-width: min(90vw, 1200px);
+  margin: 0 auto;
+  padding: calc(clamp(16px, 2.5vw, 40px) + 48px) var(--page-padding) clamp(16px, 2.5vw, 40px);
+  row-gap: var(--space-xs);
+  column-gap: var(--space-lg);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 400ms var(--ease-out), visibility 400ms var(--ease-out);
+}
+
+/* Large screens: collapse the stretchy grid into normal flow, vertically centered */
+@media (min-height: 900px) {
+  .takeover-drawer:not(.takeover-drawer--writing) {
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    row-gap: var(--space-sm);
+  }
+
+  .takeover-drawer:not(.takeover-drawer--writing) .takeover-drawer__carousel {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+}
+
+.landing-takeover.has-drawer .takeover-drawer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 350ms;
+}
+
+/* --- Staggered entrance — each element fades individually --- */
+.takeover-drawer__back,
+.takeover-drawer__title,
+.takeover-drawer__date,
+.takeover-drawer__carousel,
+.takeover-drawer__description,
+.takeover-drawer__links {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.landing-takeover.has-drawer .takeover-drawer__back {
+  opacity: var(--opacity-interactive);
+  transition-delay: 100ms;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__back:hover {
+  opacity: 0.7;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__title {
+  opacity: 1;
+  transition-delay: 200ms;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__date {
+  opacity: var(--opacity-metadata);
+  transition-delay: 200ms;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__carousel {
+  opacity: 1;
+  transition-delay: 350ms;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__description {
+  opacity: var(--opacity-reading);
+  transition-delay: 500ms;
+}
+
+.landing-takeover.has-drawer .takeover-drawer__links {
+  opacity: 1;
+  transition-delay: 500ms;
+}
+
+
+/* --- Drawer: four-corner layout ---
+   Back at landing-name position. Title top-left, date top-right,
+   carousel centered, description bottom-left, links bottom-right.
+   Negative space between corners is active, not empty.
+   ========================================================================== */
+
+/* Back — pinned top-left of drawer, aligned with title horizontally
+   and at the same elevation as the takeover label */
+.takeover-drawer__back {
+  position: absolute;
+  top: clamp(16px, 2.5vw, 40px);
+  left: var(--page-padding);
+  padding-top: var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: var(--opacity-interactive);
+  cursor: pointer;
+  transition: opacity 500ms var(--ease-out);
+  line-height: 1;
+  z-index: 1;
+}
+
+.takeover-drawer__back:hover {
+  opacity: 0.7;
+}
+
+/* Title — top-left, below back */
+.takeover-drawer__title {
+  grid-area: title;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-nav);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.5;
+  line-height: 1;
+  margin: 0;
+  align-self: baseline;
+}
+
+/* Date — top-right */
+.takeover-drawer__date {
+  grid-area: date;
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: var(--opacity-metadata);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-align: right;
+  align-self: baseline;
+}
+
+/* Carousel — center */
+.takeover-drawer__carousel {
+  grid-area: carousel;
+  position: relative;
+  user-select: none;
+  align-self: center;
+  min-height: 0;
+}
+
+.takeover-drawer__track {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: rgba(var(--color-text-rgb), 0.03);
+}
+
+.takeover-drawer__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+
+.takeover-drawer__slide.is-active {
+  opacity: 1;
+}
+
+.takeover-drawer__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.takeover-drawer__slide-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  color: var(--color-text);
+  opacity: 0.2;
+  letter-spacing: 0.04em;
+}
+
+/* Image label + counter — sits below carousel, right-aligned */
+.takeover-drawer__img-label-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: var(--space-xs);
+}
+
+.takeover-drawer__img-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--coastal-sage);
+  opacity: 1;
+  letter-spacing: 0.02em;
+}
+
+.takeover-drawer__counter {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--coastal-sage);
+  opacity: 1;
+  letter-spacing: 0.02em;
+}
+
+/* Description — bottom-left */
+.takeover-drawer__description {
+  grid-area: desc;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: var(--opacity-reading);
+  margin: 0;
+  align-self: end;
+}
+
+/* Links — bottom-right */
+.takeover-drawer__links {
+  grid-area: links;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-self: end;
+  text-align: right;
+}
+
+/* Intentionally 0.5 — between interactive (0.35) and reading (0.65) */
+.takeover-drawer__links a {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  opacity: 0.5;
+  transition: opacity 400ms var(--ease-out), color 400ms var(--ease-out);
+}
+
+.takeover-drawer__links a:hover {
+  opacity: 1;
+  color: var(--bengara);
+}
+
+
+/* --- Pre-paint: drawer arrives directly from URL --- */
+
+html[data-drawer-target] .takeover-list-view .landing-takeover__label,
+html[data-drawer-target] .takeover-list-view .landing-takeover__list {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+html[data-drawer-target] .takeover-drawer {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
+  transition: none !important;
+}
+
+html[data-drawer-target] .takeover-drawer__back,
+html[data-drawer-target] .takeover-drawer__title,
+html[data-drawer-target] .takeover-drawer__date,
+html[data-drawer-target] .takeover-drawer__carousel,
+html[data-drawer-target] .takeover-drawer__description,
+html[data-drawer-target] .takeover-drawer__links {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+
+/* ==========================================================================
+   WRITING DRAWER — body text replaces carousel
+   ========================================================================== */
+
+/* Writing drawer: relative flow so it extends the takeover's scroll height.
+   Content column is 680px (Stripe Press) — padding sits outside so inner width is exact. */
+.takeover-drawer--writing {
+  display: block;
+  max-width: calc(680px + 2 * var(--page-padding));
+  margin: 0 auto;
+  padding: calc(clamp(16px, 2.5vw, 40px) + 48px) var(--page-padding) clamp(16px, 2.5vw, 40px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.takeover-drawer--writing::-webkit-scrollbar {
+  display: none;
+}
+
+.takeover-drawer--writing .takeover-drawer__body::after {
+  content: '';
+  display: block;
+  height: calc(clamp(16px, 2.5vw, 40px) + 48px);
+}
+
+#takeover-writing.has-drawer .takeover-list-view {
+  pointer-events: none;
+}
+
+#takeover-writing.has-drawer .takeover-list-view .landing-takeover__label,
+#takeover-writing.has-drawer .takeover-list-view .landing-takeover__list {
+  opacity: 0 !important;
+  transition: opacity 400ms var(--ease-out);
+  transition-delay: 0ms !important;
+}
+
+/* Named grid areas match the base .takeover-drawer__title / __date
+   grid-area declarations, so there's no ambiguity about placement. */
+.takeover-drawer--writing .takeover-drawer__writing-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title date";
+  align-items: baseline;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.takeover-drawer--writing .takeover-drawer__title {
+  grid-area: title;
+  justify-self: start;
+  text-align: left;
+  margin: 0;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  min-width: 0;
+}
+
+.takeover-drawer--writing .takeover-drawer__date {
+  grid-area: date;
+  justify-self: end;
+  text-align: right;
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.takeover-drawer__body {
+  padding-top: var(--space-md);
+  clear: both;
+}
+
+
+.takeover-drawer__body p {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  margin-bottom: 1.4em;
+}
+
+.takeover-drawer__body p:last-child {
+  margin-bottom: 0;
+}
+
+.takeover-drawer__figure {
+  margin: var(--space-md) 0;
+}
+
+.takeover-drawer__figure img {
+  width: 100%;
+  display: block;
+}
+
+.takeover-drawer__figure figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--coastal-sage);
+  margin-top: var(--space-xs);
+  letter-spacing: 0.02em;
+}
+
+.takeover-drawer__body a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(var(--color-text-rgb), 0.2);
+  transition: color 400ms var(--ease-out), text-decoration-color 400ms var(--ease-out);
+}
+
+
+.takeover-drawer__body a:hover {
+  color: var(--bengara);
+  text-decoration-color: var(--bengara);
+}
+
+/* Stagger entrance for writing body — text leads, images follow */
+.takeover-drawer__body p {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.takeover-drawer__body .takeover-drawer__figure {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.landing-takeover.writing-body-in .takeover-drawer__body p {
+  opacity: 1;
+  transition-delay: 400ms;
+}
+
+.landing-takeover.writing-body-in .takeover-drawer__body .takeover-drawer__figure {
+  opacity: 1;
+  transition-delay: 900ms;
+}
+
+/* Pre-paint for writing drawer */
+html[data-drawer-target] .takeover-drawer__body {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html[data-drawer-target] .takeover-drawer__body p {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+
+/* Label sits top-center */
+.landing-takeover__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 1;
+  line-height: 1;
+  padding-top: var(--space-sm);
+  text-align: center;
+}
+
+/* List centered both ways */
+.landing-takeover__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.landing-takeover__list li {
+  margin-bottom: 0.6em;
+}
+
+/* Slightly above interactive (0.35) for readability */
+.landing-takeover__list a {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  opacity: 0.4;
+  transition: opacity 500ms var(--ease-out), color 500ms var(--ease-out);
+  cursor: pointer;
+}
+
+.landing-takeover__list a:hover {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+/* Footer bar — links left, location right */
+.landing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.landing-footer__links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.landing-footer__links a {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: var(--opacity-interactive);
+  transition: opacity 700ms var(--ease-out);
+}
+
+.landing-footer__links a:hover {
+  opacity: 0.7 !important;
+}
+
+.landing-footer__location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.landing-footer__location-text {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: var(--opacity-interactive);
+  transition: opacity 700ms var(--ease-out);
+}
+
+.landing-footer__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--dot-color, var(--color-text));
+  opacity: 0.5;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: background-color 700ms var(--ease-out), opacity 700ms var(--ease-out);
+}
+
+
+/* ==========================================================================
+   PHOTOGRAPHY PAGE
+   ========================================================================== */
+
+.photo-page {
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: clamp(16px, 2.5vw, 40px) var(--page-padding) var(--space-2xl);
+  transition: opacity 200ms var(--ease-out);
+}
+
+.photo-page__back {
+  padding-top: var(--space-sm);
+}
+
+.photo-page.is-leaving {
+  opacity: 0;
+}
+
+.photo-page__back {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.35;
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  transition: opacity 500ms var(--ease-out);
+}
+
+.photo-page__back:hover {
+  opacity: 0.7;
+}
+
+.photo-page__header {
+  margin-bottom: var(--space-lg);
+}
+
+.photo-page__title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-nav);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 0.4em;
+}
+
+.photo-page__subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.4;
+  letter-spacing: 0.02em;
+}
+
+/* Film sequence — vertical, uniform width */
+.photo-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.photo-frame {
+  position: relative;
+  width: 100%;
+}
+
+.photo-frame img {
+  width: 100%;
+  display: block;
+}
+
+.photo-frame figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--coastal-sage);
+  opacity: 1;
+  margin-top: var(--space-sm);
+  letter-spacing: 0.02em;
+}
+
+
+/* ==========================================================================
+   SHARED COMPONENTS
+   ========================================================================== */
+
+/* ==========================================================================
+   LANDING ENTRANCE — Swell (locked)
+   ========================================================================== */
+
+.landing[data-entrance="swell"] .landing-name,
+.landing[data-entrance="swell"] .landing-nav-item {
+  --el-opacity: 0.5;
+  opacity: 0;
+  animation: swellIn 1600ms cubic-bezier(0.37, 0, 0.63, 1) 200ms forwards;
+}
+
+.landing[data-entrance="swell"] .landing-footer__links a,
+.landing[data-entrance="swell"] .landing-footer__location-text {
+  --el-opacity: 0.35;
+  opacity: 0;
+  animation: swellIn 1600ms cubic-bezier(0.37, 0, 0.63, 1) 200ms forwards;
+}
+
+.landing[data-entrance="swell"] .landing-footer__dot {
+  opacity: 0;
+  animation: dotSwell 1600ms cubic-bezier(0.37, 0, 0.63, 1) 200ms forwards;
+}
+
+@keyframes swellIn {
+  0%   { opacity: 0; }
+  50%  { opacity: calc(var(--el-opacity, 1) * 0.7); }
+  100% { opacity: var(--el-opacity, 1); }
+}
+
+@keyframes dotSwell {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 0.5; }
+}
+
+/* --- Return entrance — quick fade, like closing a takeover --- */
+
+.landing[data-entrance="return"] .landing-name,
+.landing[data-entrance="return"] .landing-nav-item {
+  opacity: 0;
+  animation: returnIn 350ms var(--ease-out) forwards;
+}
+
+.landing[data-entrance="return"] .landing-footer__links a,
+.landing[data-entrance="return"] .landing-footer__location-text {
+  opacity: 0;
+  animation: returnInSoft 350ms var(--ease-out) forwards;
+}
+
+.landing[data-entrance="return"] .landing-footer__dot {
+  opacity: 0;
+  animation: returnInDot 350ms var(--ease-out) forwards;
+}
+
+@keyframes returnIn {
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+}
+
+@keyframes returnInSoft {
+  from { opacity: 0; }
+  to   { opacity: 0.35; }
+}
+
+@keyframes returnInDot {
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+}
+
+
+
+
+/* ==========================================================================
+   NAV HOVER INTERACTIONS
+   Toggle with keys 1-2. Active mode set via [data-hover] on .landing
+   ========================================================================== */
+
+/* Shared: smooth transitions — everything fades at the same pace */
+.landing[data-hover] .landing-name,
+.landing[data-hover] .landing-nav-item,
+.landing[data-hover] .landing-footer__links,
+.landing[data-hover] .landing-footer__links a,
+.landing[data-hover] .landing-footer__location-text,
+.landing[data-hover] .landing-footer__dot {
+  transition:
+    opacity 700ms var(--ease-out),
+    background-color 700ms var(--ease-out),
+    color 700ms var(--ease-out) !important;
+}
+
+.landing[data-hover] {
+  transition:
+    background-color 700ms var(--ease-out),
+    color 700ms var(--ease-out);
+}
+
+
+/* --- 1: Indigo — hovered item reaches full indigo black --- */
+
+.landing[data-hover="indigo"].is-hovering .landing-name,
+.landing[data-hover="indigo"].is-hovering .landing-footer__links,
+.landing[data-hover="indigo"].is-hovering .landing-footer__location-text,
+.landing[data-hover="indigo"].is-hovering .landing-footer__dot {
+  opacity: 0.08 !important;
+}
+
+.landing[data-hover="indigo"].is-hovering .landing-nav-item {
+  opacity: 0.08 !important;
+}
+
+.landing[data-hover="indigo"].is-hovering .landing-nav-item.is-active {
+  color: var(--color-text) !important;
+  opacity: 1 !important;
+}
+
+/* Pre-paint takeover — hash-based arrival, no flash */
+html[data-takeover-target] .landing-name,
+html[data-takeover-target] .landing-nav-item,
+html[data-takeover-target] .landing-footer__links a,
+html[data-takeover-target] .landing-footer__location-text,
+html[data-takeover-target] .landing-footer__dot,
+html[data-takeover-target] .landing-footer__location {
+  opacity: 0 !important;
+  transition: none !important;
+  pointer-events: none;
+}
+
+html[data-takeover-target="projects"] #takeover-projects,
+html[data-takeover-target="writing"] #takeover-writing {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
+  transition: none !important;
+}
+
+html[data-takeover-target="projects"] #takeover-projects .landing-takeover__label,
+html[data-takeover-target="projects"] #takeover-projects .landing-takeover__list,
+html[data-takeover-target="writing"] #takeover-writing .landing-takeover__label,
+html[data-takeover-target="writing"] #takeover-writing .landing-takeover__list {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Page exit — fade landing before navigating away */
+.landing.is-leaving .landing-name,
+.landing.is-leaving .landing-nav-item,
+.landing.is-leaving .landing-nav-item.is-active,
+.landing.is-leaving .landing-footer__links a,
+.landing.is-leaving .landing-footer__location-text,
+.landing.is-leaving .landing-footer__dot,
+.landing.is-leaving .landing-footer__location {
+  opacity: 0 !important;
+  transition: opacity 200ms var(--ease-out);
+  pointer-events: none;
+}
+
+/* Takeover isolation — high specificity to beat hover + active states */
+.landing.has-takeover .landing-name,
+.landing.has-takeover .landing-nav-item,
+.landing.has-takeover .landing-nav-item.is-active,
+.landing.has-takeover .landing-footer__links a,
+.landing.has-takeover .landing-footer__location-text,
+.landing.has-takeover .landing-footer__dot,
+.landing.has-takeover .landing-footer__location {
+  opacity: 0 !important;
+  transition: opacity 400ms var(--ease-out);
+  pointer-events: none;
+}
+
+
+/* Fade-in for scroll-revealed elements */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--fade {
+  transform: none;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 24px;
+    --space-xl: 80px;
+    --space-2xl: 120px;
+    --opacity-ambient: 0.65;
+  }
+
+  .landing-nav {
+    flex-direction: row;
+    gap: var(--space-md);
+    justify-content: space-between;
+  }
+
+  .landing-footer__location-text {
+    opacity: 0.45;
+  }
+
+  .landing-footer {
+    justify-content: flex-end;
+  }
+
+  .landing-footer__links {
+    display: none;
+  }
+
+  .photo-page {
+    max-width: 100%;
+  }
+
+  /* Project drawer: stack date below title on mobile */
+  .takeover-drawer:not(.takeover-drawer--writing) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "title"
+      "date"
+      "carousel"
+      "desc"
+      "links";
+    row-gap: var(--space-sm);
+    align-content: start;
+  }
+
+  .takeover-drawer:not(.takeover-drawer--writing) .takeover-drawer__date {
+    text-align: left;
+  }
+
+  .takeover-drawer:not(.takeover-drawer--writing) .takeover-drawer__img-label-wrap {
+    margin-top: var(--space-sm);
+  }
+
+  .takeover-drawer:not(.takeover-drawer--writing) .takeover-drawer__description {
+    margin-top: var(--space-xs);
+  }
+
+  /* Writing drawer: stack date below title */
+  .takeover-drawer--writing .takeover-drawer__writing-head {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "date";
+    gap: var(--space-xs);
+  }
+
+  .takeover-drawer--writing .takeover-drawer__date {
+    justify-self: start;
+    text-align: left;
+  }
+
+  /* Captions: bump for readability */
+  .takeover-drawer__img-label,
+  .takeover-drawer__counter,
+  .takeover-drawer__figure figcaption {
+    font-size: clamp(13px, 1.2vw, 15px);
+  }
+
+  .takeover-drawer__links {
+    text-align: left;
+  }
+}

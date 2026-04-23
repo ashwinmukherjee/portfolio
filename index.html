@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Ashwin Mukherjee</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%238B3A2A'/></svg>">
+  <link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+  <script>
+    // Pre-paint: choose entrance and apply deep-link state before first render
+    (function() {
+      var hash = location.hash.replace('#', '');
+      if (hash) {
+        var parts = hash.split('/');
+        var section = parts[0];
+        var slug = parts[1] || null;
+        document.documentElement.setAttribute('data-takeover-target', section);
+        if (slug) document.documentElement.setAttribute('data-drawer-target', slug);
+      }
+
+      // First visit → slow swell; return visit → quick fade
+      var entrance = sessionStorage.getItem('visited') ? 'return' : 'swell';
+      document.documentElement.setAttribute('data-entrance', entrance);
+      sessionStorage.setItem('visited', '1');
+    })();
+  </script>
+
+  <main class="landing">
+
+    <!-- Name — top-left, like a plaque at the entrance -->
+    <h1 class="landing-name">Ashwin Mukherjee</h1>
+
+    <!-- Navigation — spread across the midline of the room -->
+    <nav class="landing-nav">
+      <a href="photography.html" class="landing-nav-item" data-section="film">Film</a>
+      <span class="landing-nav-item" data-section="projects" data-takeover="takeover-projects">Projects</span>
+      <span class="landing-nav-item" data-section="writing" data-takeover="takeover-writing">Writing</span>
+    </nav>
+
+    <!-- Footer — quiet context -->
+    <footer class="landing-footer">
+      <div class="landing-footer__links">
+        <a href="mailto:ashwinmu@usc.edu">Contact</a>
+        <a href="https://x.com/ashwinmukherjee" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://www.linkedin.com/in/ashwinmukherjee/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <span class="landing-footer__location">
+        <span class="landing-footer__dot"></span>
+        <span class="landing-footer__location-text">Based in California</span>
+      </span>
+    </footer>
+
+  </main>
+
+  <!-- Takeover: Projects -->
+  <div class="landing-takeover" id="takeover-projects">
+
+    <!-- List view -->
+    <div class="takeover-list-view">
+      <span class="landing-takeover__label">Projects</span>
+      <ul class="landing-takeover__list"></ul>
+    </div>
+
+    <!-- Drawer view (populated by JS) -->
+    <div class="takeover-drawer">
+      <span class="takeover-drawer__back">Back</span>
+      <h2 class="takeover-drawer__title"></h2>
+      <span class="takeover-drawer__date"></span>
+      <div class="takeover-drawer__carousel">
+        <div class="takeover-drawer__track"></div>
+        <div class="takeover-drawer__img-label-wrap">
+          <span class="takeover-drawer__img-label"></span>
+          <span class="takeover-drawer__counter"></span>
+        </div>
+      </div>
+      <p class="takeover-drawer__description"></p>
+      <div class="takeover-drawer__links"></div>
+    </div>
+
+  </div>
+
+  <!-- Takeover: Writing -->
+  <div class="landing-takeover" id="takeover-writing">
+
+    <!-- List view -->
+    <div class="takeover-list-view">
+      <span class="landing-takeover__label">Writing</span>
+      <ul class="landing-takeover__list"></ul>
+    </div>
+
+    <!-- Drawer view (populated by JS) -->
+    <div class="takeover-drawer takeover-drawer--writing">
+      <span class="takeover-drawer__back">Back</span>
+      <div class="takeover-drawer__writing-head">
+        <h2 class="takeover-drawer__title"></h2>
+        <span class="takeover-drawer__date"></span>
+      </div>
+      <div class="takeover-drawer__body"></div>
+    </div>
+
+  </div>
+
+  <script src="js/main.js?v=5"></script>
+</body>
+</html>
