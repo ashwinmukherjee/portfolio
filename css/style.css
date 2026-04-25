@@ -71,7 +71,7 @@
   --space-xl:  128px;
   --space-2xl: 192px;
 
-  /* Motion — slow, tidal, inevitable */
+  /* Motion */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-fast:   200ms;
@@ -92,7 +92,7 @@
   --opacity-metadata: 0.3;
 }
 
-/* --- Dark mode: Sundarbans — indigo black ground, deep, immersive --- */
+/* --- Dark mode --- */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg:        var(--indigo-black);
@@ -103,7 +103,6 @@
     --color-text-rgb: 237, 235, 230;
     --color-bg-rgb:   12, 17, 25;
 
-    /* dark mode: may need tuning */
     --opacity-ambient: 0.55;
     --opacity-reading: 0.7;
     --opacity-interactive: 0.4;
@@ -169,7 +168,6 @@ a {
   overflow: hidden;
 }
 
-/* Name — top-left, like a plaque at the entrance */
 .landing-name {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -183,7 +181,6 @@ a {
   transition: opacity 700ms var(--ease-out);
 }
 
-/* Navigation — three items spread edge-to-edge at vertical center */
 .landing-nav {
   display: flex;
   justify-content: space-between;
@@ -222,7 +219,6 @@ a {
    TAKEOVER — full page list when a section is opened
    ========================================================================== */
 
-/* Takeover — fills the same grid as landing, feels like the same room */
 .landing-takeover {
   position: fixed;
   inset: 0;
@@ -286,7 +282,6 @@ a {
 
 /* ==========================================================================
    DRAWER — project detail nested inside takeover
-   Same 3-row grid as the landing page: top / center / bottom
    ========================================================================== */
 
 .takeover-drawer {
@@ -378,14 +373,6 @@ a {
 }
 
 
-/* --- Drawer: four-corner layout ---
-   Back at landing-name position. Title top-left, date top-right,
-   carousel centered, description bottom-left, links bottom-right.
-   Negative space between corners is active, not empty.
-   ========================================================================== */
-
-/* Back — pinned top-left of drawer, aligned with title horizontally
-   and at the same elevation as the takeover label */
 .takeover-drawer__back {
   position: absolute;
   top: clamp(16px, 2.5vw, 40px);
@@ -408,7 +395,6 @@ a {
   opacity: 0.7;
 }
 
-/* Title — top-left, below back */
 .takeover-drawer__title {
   grid-area: title;
   font-family: var(--font-sans);
@@ -423,7 +409,6 @@ a {
   align-self: baseline;
 }
 
-/* Date — top-right */
 .takeover-drawer__date {
   grid-area: date;
   font-family: var(--font-sans);
@@ -437,7 +422,6 @@ a {
   align-self: baseline;
 }
 
-/* Carousel — center */
 .takeover-drawer__carousel {
   grid-area: carousel;
   position: relative;
@@ -487,7 +471,6 @@ a {
   letter-spacing: 0.04em;
 }
 
-/* Image label + counter — sits below carousel, right-aligned */
 .takeover-drawer__img-label-wrap {
   display: flex;
   justify-content: space-between;
@@ -513,7 +496,6 @@ a {
   letter-spacing: 0.02em;
 }
 
-/* Description — bottom-left */
 .takeover-drawer__description {
   grid-area: desc;
   font-family: var(--font-sans);
@@ -526,7 +508,6 @@ a {
   align-self: end;
 }
 
-/* Links — bottom-right */
 .takeover-drawer__links {
   grid-area: links;
   display: flex;
@@ -735,7 +716,6 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
 }
 
 
-/* Label sits top-center */
 .landing-takeover__label {
   font-family: var(--font-sans);
   font-size: var(--text-nav);
@@ -749,7 +729,6 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
   text-align: center;
 }
 
-/* List centered both ways */
 .landing-takeover__list {
   list-style: none;
   padding: 0;
@@ -780,7 +759,6 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
   opacity: 1;
 }
 
-/* Footer bar — links left, location right */
 .landing-footer {
   display: flex;
   justify-content: space-between;
@@ -892,7 +870,6 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
   letter-spacing: 0.02em;
 }
 
-/* Film sequence — vertical, uniform width */
 .photo-sequence {
   display: flex;
   flex-direction: column;

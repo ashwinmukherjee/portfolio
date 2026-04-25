@@ -1,6 +1,5 @@
 /* ==========================================================================
    PORTFOLIO — ASHWIN MUKHERJEE
-   Motion: slow, tidal, inevitable
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
