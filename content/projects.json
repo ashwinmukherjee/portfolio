@@ -1,5 +1,21 @@
 [
   {
+    "slug": "sep",
+    "title": "SEP",
+    "date": "Fall 2025 — Spring 2026",
+    "description": "President of USC's flagship startup club. Oversaw a 7-team incubator each semester alongside full club operations: recruitment, fundraising, programming, and external relationships. All-time high applications and Demo Day attendance, both semesters.",
+    "images": [
+      { "src": "img/projects/sep/sep-01.jpg", "label": "Demo Day Panel" },
+      { "src": "img/projects/sep/sep-02.jpg", "label": "Fireside at Sequoia" },
+      { "src": "img/projects/sep/sep-03.jpg", "label": "Demo Day" },
+      { "src": "img/projects/sep/sep-04.jpg", "label": "Fireside with Isaiah Taylor" },
+      { "src": "img/projects/sep/sep-05.jpg", "label": "Composite" }
+    ],
+    "links": [
+      { "text": "Tech Trek Vlog", "href": "https://youtu.be/1bZiMKHMvnk?si=RNBnsJlm9hTIVTfR" }
+    ]
+  },
+  {
     "slug": "eon",
     "title": "Eon",
     "date": "Spring 2025",
