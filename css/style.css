@@ -426,8 +426,11 @@ a {
   grid-area: carousel;
   position: relative;
   user-select: none;
-  align-self: center;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .takeover-drawer__track {
