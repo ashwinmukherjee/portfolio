@@ -14,18 +14,18 @@
     "links": [{"text": "Thread", "href": "https://x.com/ashwinmukherjee/status/1920889784546759001?s=20"}]
   },
   {
-    "slug": "lionfish-pavilion",
-    "title": "Lionfish Pavilion",
+    "slug": "catamaran-pavilion",
+    "title": "Catamaran Pavilion",
     "date": "Spring 2025",
     "description": "A small pavilion for Southern California's coastal landscape. Bamboo slat walls enclose the lower volume while steel A-frames support glass panels that open the upper to sky.",
     "images": [
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-01.jpg", "label": "Dusk" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-02.jpg", "label": "Site Plan" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-03.jpg", "label": "Floor Plan" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-04.jpg", "label": "Elevation View" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-05.jpg", "label": "Section View" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-06.jpg", "label": "Collage" },
-      { "src": "img/projects/lionfish-pavilion/lionfish-pavilion-07.jpg", "label": "Wood Model" }
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-01.jpg", "label": "Dusk" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-02.jpg", "label": "Site Plan" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-03.jpg", "label": "Floor Plan" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-04.jpg", "label": "Elevation View" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-05.jpg", "label": "Section View" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-06.jpg", "label": "Collage" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-07.jpg", "label": "Wood Model" }
     ],
     "links": []
   },
