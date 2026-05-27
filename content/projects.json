@@ -14,20 +14,22 @@
     "links": [{"text": "Thread", "href": "https://x.com/ashwinmukherjee/status/1920889784546759001?s=20"}]
   },
   {
-    "slug": "catamaran-pavilion",
-    "title": "Catamaran Pavilion",
-    "date": "Spring 2025",
-    "description": "A small pavilion for Southern California's coastal landscape. Bamboo slat walls enclose the lower volume while steel A-frames support glass panels that open the upper to sky.",
+    "slug": "algaeorithm",
+    "title": "Algaeorithm",
+    "date": "Fall 2021 — Fall 2023",
+    "description": "A computational biology platform and education tool for high school classrooms. Developed in collaboration with the Institute for Systems Biology and funded by $20k in grants from the U.S. Department of Energy. Full product, brand, and content system designed from scratch.",
     "images": [
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-01.jpg", "label": "Dusk" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-02.jpg", "label": "Site Plan" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-03.jpg", "label": "Floor Plan" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-04.jpg", "label": "Elevation View" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-05.jpg", "label": "Section View" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-06.jpg", "label": "Collage" },
-      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-07.jpg", "label": "Wood Model" }
+      { "src": "img/projects/algaeorithm/algaeorithm-01.gif", "label": "Motion Graphics" },
+      { "src": "img/projects/algaeorithm/algaeorithm-02.jpg", "label": "Web Application" },
+      { "src": "img/projects/algaeorithm/algaeorithm-03.jpg", "label": "Logo" },
+      { "src": "img/projects/algaeorithm/algaeorithm-04.jpg", "label": "Branding" },
+      { "src": "img/projects/algaeorithm/algaeorithm-05.jpg", "label": "In the Lab" }
     ],
-    "links": []
+    "links": [
+      {"text": "YouTube", "href": "https://www.youtube.com/@algaeorithm301"},
+      {"text": "GitHub", "href": "https://github.com/rohanchanani/Algaeorithm"},
+      {"text": "ISB Article", "href": "https://isbscience.org/news/our-people/baliga-lab/high-school-duo-named-champions-in-doe-sponsored-algaeprize-competition/"}
+    ]
   },
   {
     "slug": "sep",
@@ -68,6 +70,22 @@
     ]
   },
   {
+    "slug": "catamaran-pavilion",
+    "title": "Catamaran Pavilion",
+    "date": "Spring 2025",
+    "description": "A small pavilion for Southern California's coastal landscape. Bamboo slat walls enclose the lower volume while steel A-frames support glass panels that open the upper to sky.",
+    "images": [
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-01.jpg", "label": "Dusk" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-02.jpg", "label": "Site Plan" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-03.jpg", "label": "Floor Plan" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-04.jpg", "label": "Elevation View" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-05.jpg", "label": "Section View" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-06.jpg", "label": "Collage" },
+      { "src": "img/projects/catamaran-pavilion/catamaran-pavilion-07.jpg", "label": "Wood Model" }
+    ],
+    "links": []
+  },
+  {
     "slug": "laced-up",
     "title": "Laced Up",
     "date": "Fall 2016",
@@ -78,23 +96,5 @@
       { "src": "img/projects/laced-up/laced-up-03.jpg", "label": "Finished Rack" }
     ],
     "links": []
-  },
-  {
-    "slug": "algaeorithm",
-    "title": "Algaeorithm",
-    "date": "Fall 2021 — Fall 2023",
-    "description": "A computational biology platform and education tool for high school classrooms. Developed in collaboration with the Institute for Systems Biology and funded by $20k in grants from the U.S. Department of Energy. Full product, brand, and content system designed from scratch.",
-    "images": [
-      { "src": "img/projects/algaeorithm/algaeorithm-01.gif", "label": "Motion Graphics" },
-      { "src": "img/projects/algaeorithm/algaeorithm-02.jpg", "label": "Web Application" },
-      { "src": "img/projects/algaeorithm/algaeorithm-03.jpg", "label": "Logo" },
-      { "src": "img/projects/algaeorithm/algaeorithm-04.jpg", "label": "Branding" },
-      { "src": "img/projects/algaeorithm/algaeorithm-05.jpg", "label": "In the Lab" }
-    ],
-    "links": [
-      {"text": "YouTube", "href": "https://www.youtube.com/@algaeorithm301"},
-      {"text": "GitHub", "href": "https://github.com/rohanchanani/Algaeorithm"},
-      {"text": "ISB Article", "href": "https://isbscience.org/news/our-people/baliga-lab/high-school-duo-named-champions-in-doe-sponsored-algaeprize-competition/"}
-    ]
   }
 ]
