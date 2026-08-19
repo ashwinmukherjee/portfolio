@@ -395,6 +395,62 @@ a {
   opacity: 0.7;
 }
 
+/* Prev/next project nav — mirrors the back button, anchored at the bottom */
+.takeover-drawer:not(.takeover-drawer--writing) {
+  padding-bottom: calc(clamp(16px, 2.5vw, 40px) + 48px);
+}
+
+.takeover-drawer__prev,
+.takeover-drawer__next {
+  position: absolute;
+  bottom: clamp(16px, 2.5vw, 40px);
+  padding-bottom: var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  cursor: pointer;
+  line-height: 1;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.takeover-drawer__prev {
+  left: var(--page-padding);
+}
+
+.takeover-drawer__next {
+  right: var(--page-padding);
+}
+
+.landing-takeover.has-drawer .takeover-drawer__prev,
+.landing-takeover.has-drawer .takeover-drawer__next {
+  opacity: var(--opacity-interactive);
+  pointer-events: auto;
+  /* Entrance lives in the animation so hover transitions stay instant; delay matches the back button */
+  animation: drawerNavIn 500ms var(--ease-out) 100ms backwards;
+}
+
+@keyframes drawerNavIn {
+  from { opacity: 0; }
+}
+
+.landing-takeover.has-drawer .takeover-drawer__prev:hover,
+.landing-takeover.has-drawer .takeover-drawer__next:hover {
+  opacity: 0.7;
+}
+
+/* Hidden at the ends of the project sequence */
+.landing-takeover.has-drawer .takeover-drawer__prev.is-hidden,
+.landing-takeover.has-drawer .takeover-drawer__next.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .takeover-drawer__title {
   grid-area: title;
   font-family: var(--font-sans);
@@ -817,14 +873,9 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
    ========================================================================== */
 
 .photo-page {
-  max-width: 90vw;
   margin: 0 auto;
   padding: clamp(16px, 2.5vw, 40px) var(--page-padding) var(--space-2xl);
   transition: opacity 200ms var(--ease-out);
-}
-
-.photo-page__back {
-  padding-top: var(--space-sm);
 }
 
 .photo-page.is-leaving {
@@ -832,6 +883,7 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
 }
 
 .photo-page__back {
+  padding-top: var(--space-sm);
   font-family: var(--font-sans);
   font-size: var(--text-caption);
   font-weight: 400;
@@ -886,6 +938,7 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
 .photo-frame img {
   width: 100%;
   display: block;
+  cursor: pointer;
 }
 
 .photo-frame figcaption {
@@ -896,6 +949,166 @@ html[data-drawer-target] .takeover-drawer__body .takeover-drawer__figure {
   opacity: 1;
   margin-top: var(--space-sm);
   letter-spacing: 0.02em;
+}
+
+/* Contact sheet — desktop only; mobile keeps the single column.
+   Five frames across, standardized to 3:2; tight gutters, sleeve-wide row gaps. */
+@media (min-width: 769px) {
+  .photo-page {
+    max-width: min(1400px, 92vw);
+  }
+
+  .photo-sequence {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: clamp(12px, 1.5vw, 20px);
+    row-gap: clamp(56px, 6vw, 96px);
+  }
+
+  .photo-frame img {
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  /* Caption surfaces with attention */
+  .photo-frame figcaption {
+    opacity: 0;
+    margin-top: var(--space-xs);
+    transition: opacity 700ms var(--ease-out);
+  }
+
+  .photo-frame:hover figcaption {
+    opacity: 1;
+  }
+}
+
+/* Lightbox — no scrim. The page fades out entirely and the image
+   arrives on the same ground: a scene change, not an overlay. */
+.photo-page__header,
+.photo-sequence {
+  transition: opacity 700ms var(--ease-out);
+}
+
+.photo-page.has-lightbox .photo-page__back,
+.photo-page.has-lightbox .photo-page__header,
+.photo-page.has-lightbox .photo-sequence {
+  opacity: 0 !important;
+  transition: opacity 400ms var(--ease-out);
+  pointer-events: none;
+}
+
+/* Close: the photo departs first (400ms), the page returns a beat later —
+   the drawer-close rhythm, faster than the open */
+.photo-page.lightbox-closing .photo-page__back,
+.photo-page.lightbox-closing .photo-page__header,
+.photo-page.lightbox-closing .photo-sequence {
+  transition: opacity 500ms var(--ease-out) 200ms;
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.photo-lightbox.is-open {
+  pointer-events: auto;
+}
+
+/* Figure: Back above the image, caption beneath it, Prev/Next below the caption —
+   everything aligned to the image's width */
+.photo-lightbox figure {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.photo-lightbox.is-open figure {
+  opacity: 1;
+  transition: opacity 500ms var(--ease-out) 350ms;
+}
+
+.photo-lightbox img {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  /* Fixed 3:2 stage — every photo renders at the identical size,
+     sized to leave air for Back above and the caption/nav below */
+  width: min(88vw, calc(75vh * 1.5));
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-lightbox figcaption {
+  grid-row: 3;
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--coastal-sage);
+  margin-top: var(--space-sm);
+  letter-spacing: 0.02em;
+}
+
+/* Back / Prev / Next — same register as the project drawer nav */
+.photo-lightbox__back,
+.photo-lightbox__prev,
+.photo-lightbox__next {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-text);
+  cursor: pointer;
+  opacity: var(--opacity-interactive);
+  transition: opacity 500ms var(--ease-out);
+}
+
+.photo-lightbox__back {
+  grid-row: 1;
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-bottom: var(--space-md);
+}
+
+.photo-lightbox__prev,
+.photo-lightbox__next {
+  grid-row: 4;
+  margin-top: var(--space-md);
+}
+
+.photo-lightbox__prev {
+  grid-column: 1;
+  justify-self: start;
+}
+
+.photo-lightbox__next {
+  grid-column: 2;
+  justify-self: end;
+}
+
+.photo-lightbox__back:hover,
+.photo-lightbox__prev:hover,
+.photo-lightbox__next:hover {
+  opacity: 0.7;
+}
+
+.photo-lightbox__prev.is-hidden,
+.photo-lightbox__next.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 
@@ -1123,12 +1336,9 @@ html[data-takeover-target="writing"] #takeover-writing .landing-takeover__list {
     display: none;
   }
 
-  .photo-page {
-    max-width: 100%;
-  }
-
-  /* Project drawer: stack date below title on mobile */
+  /* Project drawer: full width, stack date below title on mobile */
   .takeover-drawer:not(.takeover-drawer--writing) {
+    max-width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto auto;
     grid-template-areas:
@@ -1176,5 +1386,30 @@ html[data-takeover-target="writing"] #takeover-writing .landing-takeover__list {
 
   .takeover-drawer__links {
     text-align: left;
+  }
+
+  /* Lightbox controls: anchor to the page corners, as on the project drawer */
+  .photo-lightbox__back {
+    position: absolute;
+    top: clamp(16px, 2.5vw, 40px);
+    left: var(--page-padding);
+    margin-bottom: 0;
+    padding-top: var(--space-sm);
+  }
+
+  .photo-lightbox__prev,
+  .photo-lightbox__next {
+    position: absolute;
+    bottom: clamp(16px, 2.5vw, 40px);
+    margin-top: 0;
+    padding-bottom: var(--space-sm);
+  }
+
+  .photo-lightbox__prev {
+    left: var(--page-padding);
+  }
+
+  .photo-lightbox__next {
+    right: var(--page-padding);
   }
 }

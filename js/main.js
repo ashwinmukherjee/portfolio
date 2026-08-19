@@ -9,12 +9,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const reveals = (root || document).querySelectorAll('.reveal:not(.is-visible)');
     if (!reveals.length) return;
 
+    // Wait for a batch's images to decode (capped) so the reveal shows
+    // pixels, not empty frames — matters on cold cache
+    function whenImagesReady(targets) {
+      const decodes = [];
+      targets.forEach((el) => {
+        el.querySelectorAll('img').forEach((img) => {
+          if (!img.complete) decodes.push(img.decode().catch(() => {}));
+        });
+      });
+      if (!decodes.length) return Promise.resolve();
+      return Promise.race([
+        Promise.all(decodes),
+        new Promise((resolve) => setTimeout(resolve, 2500))
+      ]);
+    }
+
     const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+      const entering = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (!entering.length) return;
+
+      entering.forEach((entry) => revealObserver.unobserve(entry.target));
+
+      // Group by top edge into rows, then cascade top to bottom
+      whenImagesReady(entering.map((entry) => entry.target)).then(() => {
+        let row = -1;
+        let lastTop = null;
+        entering.forEach((entry) => {
+          const top = Math.round(entry.boundingClientRect.top);
+          if (lastTop === null || Math.abs(top - lastTop) > 4) {
+            row += 1;
+            lastTop = top;
+          }
+          entry.target.style.transitionDelay = row > 0 ? (row * 140) + 'ms' : '';
           entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        }
+        });
       });
     }, {
       threshold: 0.15,
@@ -40,19 +71,130 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Lightbox
+    const lightbox = document.createElement('div');
+    lightbox.className = 'photo-lightbox';
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.tabIndex = -1;
+    const lightboxFigure = document.createElement('figure');
+    const lightboxImg = document.createElement('img');
+    const lightboxCaption = document.createElement('figcaption');
+    const lightboxPrev = document.createElement('span');
+    lightboxPrev.className = 'photo-lightbox__prev';
+    lightboxPrev.textContent = 'Prev';
+    const lightboxNext = document.createElement('span');
+    lightboxNext.className = 'photo-lightbox__next';
+    lightboxNext.textContent = 'Next';
+    const lightboxBack = document.createElement('span');
+    lightboxBack.className = 'photo-lightbox__back';
+    lightboxBack.textContent = 'Back';
+    lightboxFigure.appendChild(lightboxBack);
+    lightboxFigure.appendChild(lightboxImg);
+    lightboxFigure.appendChild(lightboxPrev);
+    lightboxFigure.appendChild(lightboxNext);
+    lightboxFigure.appendChild(lightboxCaption);
+    lightbox.appendChild(lightboxFigure);
+    document.body.appendChild(lightbox);
+
+    const photoList = [];
+    let lightboxIndex = -1;
+    let lightboxTrigger = null;
+
+    const showLightboxPhoto = (index) => {
+      const entry = photoList[index];
+      if (!entry) return;
+      lightboxIndex = index;
+      lightboxTrigger = entry.el;
+      lightboxImg.src = entry.photo.src;
+      lightboxImg.alt = entry.photo.alt || '';
+      const captionText = entry.photo.caption || entry.photo.alt || '';
+      lightboxCaption.textContent = captionText;
+      lightboxCaption.hidden = !captionText;
+      lightboxPrev.classList.toggle('is-hidden', index <= 0);
+      lightboxNext.classList.toggle('is-hidden', index >= photoList.length - 1);
+    };
+
+    // Present without touching history — popstate re-entry lands here too
+    const presentLightbox = (index) => {
+      showLightboxPhoto(index);
+      lightbox.classList.add('is-open');
+      photoPage.classList.remove('lightbox-closing');
+      photoPage.classList.add('has-lightbox');
+      document.body.style.overflow = 'hidden';
+      lightbox.focus();
+    };
+
+    const openLightbox = (index) => {
+      presentLightbox(index);
+      history.pushState({ photo: true }, '', '#photo');
+    };
+
+    // Dismiss without touching history — popstate lands here
+    const dismissLightbox = () => {
+      if (!lightbox.classList.contains('is-open')) return;
+      lightbox.classList.remove('is-open');
+      photoPage.classList.remove('has-lightbox');
+      // Hold the page's return until the photo has mostly departed
+      photoPage.classList.add('lightbox-closing');
+      setTimeout(() => photoPage.classList.remove('lightbox-closing'), 800);
+      document.body.style.overflow = '';
+      if (lightboxTrigger) lightboxTrigger.focus();
+    };
+
+    // UI close (Back, scrim, Esc) retires the history entry it pushed
+    const closeLightbox = () => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (history.state && history.state.photo) history.back();
+      else dismissLightbox();
+    };
+
+    // Back closes; Forward reopens the photo it closed
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.photo && lightboxIndex >= 0) {
+        presentLightbox(lightboxIndex);
+      } else {
+        dismissLightbox();
+      }
+    });
+
+    // A stale #photo hash from a refresh mid-lightbox
+    if (location.hash === '#photo') {
+      history.replaceState(null, '', location.pathname);
+    }
+
+    lightbox.addEventListener('click', closeLightbox);
+    // Clicks on the figure (image, caption) don't close — only Back or the scrim
+    lightboxFigure.addEventListener('click', (e) => e.stopPropagation());
+    lightboxBack.addEventListener('click', () => closeLightbox());
+    lightboxPrev.addEventListener('click', () => showLightboxPhoto(lightboxIndex - 1));
+    lightboxNext.addEventListener('click', () => showLightboxPhoto(lightboxIndex + 1));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'ArrowLeft') showLightboxPhoto(lightboxIndex - 1);
+      if (e.key === 'ArrowRight') showLightboxPhoto(lightboxIndex + 1);
+    });
+
     // Fetch and render photos
     const photoSequence = photoPage.querySelector('.photo-sequence');
     if (photoSequence) {
       fetch('content/photos.json')
         .then((res) => res.json())
         .then((photos) => {
-          photos.forEach((photo) => {
+          photos.forEach((photo, index) => {
             const figure = document.createElement('figure');
             figure.className = 'photo-frame reveal reveal--fade';
             const img = document.createElement('img');
             img.src = photo.src;
             img.alt = photo.alt || '';
             img.loading = 'lazy';
+            img.tabIndex = 0;
+            photoList.push({ photo: photo, el: img });
+            img.addEventListener('click', () => openLightbox(index));
+            img.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') openLightbox(index);
+            });
             figure.appendChild(img);
             if (photo.caption) {
               const cap = document.createElement('figcaption');
@@ -337,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
 
   let projectData = {};
+  let projectOrder = [];
   let drawerCarouselCurrent = 0;
   let drawerCarouselSlides = [];
   let drawerCurrentSlug = null;
@@ -351,6 +494,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawerDescription = drawer?.querySelector('.takeover-drawer__description');
   const drawerLinks = drawer?.querySelector('.takeover-drawer__links');
   const drawerBack = drawer?.querySelector('.takeover-drawer__back');
+  const drawerPrev = drawer?.querySelector('.takeover-drawer__prev');
+  const drawerNext = drawer?.querySelector('.takeover-drawer__next');
 
   function populateDrawer(slug) {
     const data = projectData[slug];
@@ -403,6 +548,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       drawerLinks.appendChild(a);
     });
+
+    // Prev/next visibility — hidden at the ends of the sequence
+    const index = projectOrder.indexOf(slug);
+    if (drawerPrev) drawerPrev.classList.toggle('is-hidden', index <= 0);
+    if (drawerNext) drawerNext.classList.toggle('is-hidden', index === -1 || index >= projectOrder.length - 1);
   }
 
   function goToDrawerSlide(index) {
@@ -465,6 +615,28 @@ document.addEventListener('DOMContentLoaded', () => {
     drawerBack.addEventListener('click', (e) => {
       e.stopPropagation();
       closeDrawer(projectsPanel);
+    });
+  }
+
+  // Prev/next project navigation
+  function goToAdjacentProject(offset) {
+    const index = projectOrder.indexOf(drawerCurrentSlug);
+    if (index === -1) return;
+    const slug = projectOrder[index + offset];
+    if (slug) openDrawer(slug);
+  }
+
+  if (drawerPrev) {
+    drawerPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToAdjacentProject(-1);
+    });
+  }
+
+  if (drawerNext) {
+    drawerNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToAdjacentProject(1);
     });
   }
 
@@ -799,6 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(([projects, writing]) => {
       // Build slug-keyed lookup objects
       projects.forEach((p) => { projectData[p.slug] = p; });
+      projectOrder = projects.map((p) => p.slug);
       writing.forEach((w) => { writingData[w.slug] = w; });
 
       // Build list DOM

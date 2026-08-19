@@ -26,9 +26,8 @@
       { "src": "img/projects/algaeorithm/algaeorithm-05.jpg", "label": "In the Lab" }
     ],
     "links": [
-      {"text": "YouTube", "href": "https://www.youtube.com/@algaeorithm301"},
       {"text": "GitHub", "href": "https://github.com/rohanchanani/Algaeorithm"},
-      {"text": "ISB Article", "href": "https://isbscience.org/news/our-people/baliga-lab/high-school-duo-named-champions-in-doe-sponsored-algaeprize-competition/"}
+      {"text": "Article", "href": "https://isbscience.org/news/our-people/baliga-lab/high-school-duo-named-champions-in-doe-sponsored-algaeprize-competition/"}
     ]
   },
   {
@@ -66,7 +65,7 @@
       { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-02.jpg", "label": "In Context" }
     ],
     "links": [
-      { "text": "Read full case study", "href": "https://mukherjee.notion.site/Every-Song-Has-a-Story-b71ac3cd44f34ecda297d1dc85b753c8?source=copy_link" }
+      { "text": "Case Study", "href": "https://mukherjee.notion.site/Every-Song-Has-a-Story-b71ac3cd44f34ecda297d1dc85b753c8?source=copy_link" }
     ]
   },
   {
