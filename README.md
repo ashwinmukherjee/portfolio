@@ -1,3 +1,3 @@
 Personal portfolio — ashwinmukherjee.com
 
-TODO: when adding new film photos, generate web display copies (resize originals to 2048px / quality 80 into a separate folder, point photos.json at them) — full-res scans are ~5-8MB each and slow the gallery on first load.
+Adding film photos: drop scans in img/film/, run `python3 tools/reorder.py` (generates 2048px display copies in img/web/film/, opens a drag-to-reorder UI, saves to content/photos.json).
