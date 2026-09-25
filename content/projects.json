@@ -1,5 +1,23 @@
 [
   {
+    "slug": "pantheon-hq",
+    "title": "Pantheon HQ",
+    "date": "Summer 2026",
+    "description": "Concept design for a robotics startup’s headquarters in a 1920s factory on San Francisco’s waterfront. Terracotta enclosures, Douglas fir and satin glass define new spaces within the original concrete frame, brickwork and skylights.",
+    "images": [
+      { "src": "img/projects/pantheon-hq/pantheon-hq-01.jpg", "label": "Nave" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-02.jpg", "label": "Lobby" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-03.jpg", "label": "Street" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-04.jpg", "label": "Refectory" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-05.jpg", "label": "Work Floor" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-06.jpg", "label": "Floor Plan" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-07.jpg", "label": "Lighting Plan" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-08.jpg", "label": "Blender Model" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-09.jpg", "label": "Early Sketch / Final Render" }
+    ],
+    "links": []
+  },
+  {
     "slug": "eon",
     "title": "Eon",
     "date": "Spring 2025",
@@ -19,7 +37,7 @@
     "date": "Fall 2021 — Fall 2023",
     "description": "A computational biology platform and education tool for high school classrooms. Developed in collaboration with the Institute for Systems Biology and funded by $20k in grants from the U.S. Department of Energy. Full product, brand, and content system designed from scratch.",
     "images": [
-      { "src": "img/projects/algaeorithm/algaeorithm-01.gif", "label": "Motion Graphics" },
+      { "src": "img/projects/algaeorithm/algaeorithm-01.mp4", "label": "Motion Graphics" },
       { "src": "img/projects/algaeorithm/algaeorithm-02.jpg", "label": "Web Application" },
       { "src": "img/projects/algaeorithm/algaeorithm-03.jpg", "label": "Logo" },
       { "src": "img/projects/algaeorithm/algaeorithm-04.jpg", "label": "Branding" },

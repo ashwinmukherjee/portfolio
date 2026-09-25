@@ -513,7 +513,17 @@ document.addEventListener('DOMContentLoaded', () => {
     (data.images || []).forEach((img, i) => {
       const slide = document.createElement('div');
       slide.className = 'takeover-drawer__slide' + (i === 0 ? ' is-active' : '');
-      if (img.src) {
+      if (img.src && /\.(mp4|webm)$/.test(img.src)) {
+        // Looping clip in place of a GIF: muted + playsinline so it autoplays on iOS
+        const videoEl = document.createElement('video');
+        videoEl.src = img.src;
+        videoEl.autoplay = true;
+        videoEl.loop = true;
+        videoEl.muted = true;
+        videoEl.playsInline = true;
+        videoEl.setAttribute('aria-label', img.label || '');
+        slide.appendChild(videoEl);
+      } else if (img.src) {
         const imgEl = document.createElement('img');
         imgEl.src = img.src;
         imgEl.alt = img.label || '';
