@@ -3,18 +3,20 @@
     "slug": "pantheon-hq",
     "title": "Pantheon HQ",
     "date": "Summer 2026",
-    "description": "Concept design for a robotics startup’s headquarters in a 1920s elevator factory in San Francisco. The work spans site selection and visits, reference research, floor planning, material studies, detailed 3D modeling and visualization.",
+    "description": "Concept design for Pantheon’s headquarters in a 1920s elevator factory in San Francisco. The work spans site selection and visits, reference research, floor planning, material studies, detailed 3D modeling and visualization.",
     "images": [
       { "src": "img/projects/pantheon-hq/pantheon-hq-01.jpg", "label": "Nave" },
       { "src": "img/projects/pantheon-hq/pantheon-hq-02.jpg", "label": "Lobby" },
-      { "src": "img/projects/pantheon-hq/pantheon-hq-03.jpg", "label": "Street" },
-      { "src": "img/projects/pantheon-hq/pantheon-hq-04.jpg", "label": "Refectory" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-03.jpg", "label": "Refectory" },
+      { "src": "img/projects/pantheon-hq/pantheon-hq-04.jpg", "label": "Street" },
       { "src": "img/projects/pantheon-hq/pantheon-hq-05.jpg", "label": "Work Floor" },
       { "src": "img/projects/pantheon-hq/pantheon-hq-06.jpg", "label": "Floor Plan" },
       { "src": "img/projects/pantheon-hq/pantheon-hq-07.jpg", "label": "Lighting Plan" },
       { "src": "img/projects/pantheon-hq/pantheon-hq-08.jpg", "label": "Blender Model" }
     ],
-    "links": []
+    "links": [
+      { "text": "Pantheon", "href": "https://pantheon.inc/" }
+    ]
   },
   {
     "slug": "eon",
