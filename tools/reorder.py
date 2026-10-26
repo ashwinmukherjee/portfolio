@@ -3,6 +3,8 @@
 
   python3 tools/reorder.py
 
+0. Any .tif scan in img/film/ is converted to a .jpg beside it, cropped/scaled to the standard 3089x2048 (q99, sRGB).
+   The .tif stays put (gitignored) so you keep the original.
 1. Any scan in img/film/ without a display copy gets one (2048px long edge, q80) in img/web/film/.
 2. Any scan git doesn't track yet is appended to content/photos.json with a caption drafted from its filename.
    (Committed scans missing from the JSON are treated as deliberately removed and left alone.)
@@ -18,6 +20,7 @@ SCANS = os.path.join(ROOT, 'img', 'film')
 WEB = os.path.join(ROOT, 'img', 'web', 'film')
 PHOTOS = os.path.join(ROOT, 'content', 'photos.json')
 PORT = 8765
+SCAN_SIZE = '3089x2048'  # every existing scan in img/film/ is this size
 
 
 def load():
@@ -35,8 +38,28 @@ def title_from(filename):
     return re.sub(r'[_\-]+', ' ', os.path.splitext(filename)[0]).title()
 
 
+def convert_tifs():
+    for f in sorted(os.listdir(SCANS)):
+        name, ext = os.path.splitext(f)
+        if ext.lower() not in ('.tif', '.tiff'):
+            continue
+        src = os.path.join(SCANS, f)
+        out = os.path.join(SCANS, name + '.jpg')
+        if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
+            continue
+        print('converting', f)
+        # flip the target for portrait scans, then fill + center-crop to the exact size
+        w, h = map(int, subprocess.run(['magick', 'identify', '-format', '%w %h', src + '[0]'],
+                                       check=True, capture_output=True, text=True).stdout.split())
+        size = SCAN_SIZE if w >= h else 'x'.join(reversed(SCAN_SIZE.split('x')))
+        subprocess.run(['magick', src + '[0]', '-colorspace', 'sRGB', '-resize', size + '^', '-gravity', 'center',
+                        '-extent', size, '-quality', '99', '-sampling-factor', '4:4:4', out],
+                       check=True, capture_output=True)
+
+
 def sync():
     os.makedirs(WEB, exist_ok=True)
+    convert_tifs()
     photos = load()
     known = {os.path.basename(p['src']) for p in photos}
     fresh = untracked()
