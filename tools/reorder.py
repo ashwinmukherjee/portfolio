@@ -21,7 +21,6 @@ WEB = os.path.join(ROOT, 'img', 'web', 'film')
 PHOTOS = os.path.join(ROOT, 'content', 'photos.json')
 PORT = 8765
 SCAN_SIZE = '3089x2048'  # every existing scan in img/film/ is this size
-SKIP = {'cascadecanyon', 'mormonrow', 'phelpslake'}  # TIFs left out of the gallery on purpose
 
 
 def load():
@@ -42,7 +41,7 @@ def title_from(filename):
 def convert_tifs():
     for f in sorted(os.listdir(SCANS)):
         name, ext = os.path.splitext(f)
-        if ext.lower() not in ('.tif', '.tiff') or name in SKIP:
+        if ext.lower() not in ('.tif', '.tiff'):
             continue
         src = os.path.join(SCANS, f)
         out = os.path.join(SCANS, name + '.jpg')
