@@ -1,5 +1,24 @@
 [
   {
+    "slug": "sochrome",
+    "title": "Sochrome",
+    "date": "Fall 2026",
+    "description": "A tool that reads your whole genome on your device and walks you through the few variants, of the millions you carry, that could mean something. Design, engineering, and copy, end to end.",
+    "images": [
+      { "src": "img/projects/sochrome/sochrome-01.mp4", "label": "Descent" },
+      { "src": "img/projects/sochrome/sochrome-02.mp4", "label": "Design System" },
+      { "src": "img/projects/sochrome/sochrome-03.mp4", "label": "Variant Page" },
+      { "src": "img/projects/sochrome/sochrome-04.jpg", "label": "Evidence" },
+      { "src": "img/projects/sochrome/sochrome-05.jpg", "label": "Protein Fold" },
+      { "src": "img/projects/sochrome/sochrome-06.jpg", "label": "Genome Ledger" }
+    ],
+    "links": [
+      { "text": "Thread", "href": "https://x.com/ashwinmukherjee/status/2124662149121544502" },
+      { "text": "GitHub", "href": "https://github.com/ashwinmukherjee/sochrome" },
+      { "text": "Sochrome", "href": "https://sochro.me" }
+    ]
+  },
+  {
     "slug": "pantheon-hq",
     "title": "Pantheon HQ",
     "date": "Summer 2026",
@@ -30,7 +49,7 @@
       { "src": "img/projects/eon/eon-04.jpg", "label": "Recs" },
       { "src": "img/projects/eon/eon-05.jpg", "label": "Wearable Development" }
     ],
-    "links": [{"text": "Thread", "href": "https://x.com/ashwinmukherjee/status/1920889784546759001?s=20"}]
+    "links": [{"text": "Thread", "href": "https://x.com/ashwinmukherjee/status/1920889784546759001"}]
   },
   {
     "slug": "algaeorithm",
@@ -80,7 +99,7 @@
     "date": "Winter 2024",
     "description": "A reimagined \"Behind this track\" feature for SoundCloud. Stacks are interactive, collapsible visualizations that let musicians reveal the layers and decisions behind their music",
     "images": [
-      { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-01.gif", "label": "Stack Component" },
+      { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-01.mp4", "label": "Stack Component" },
       { "src": "img/projects/soundcloud-stacks/soundcloud-stacks-02.jpg", "label": "In Context" }
     ],
     "links": [
